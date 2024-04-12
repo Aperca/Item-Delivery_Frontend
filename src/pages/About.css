@@ -1,19 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 .grid-container {
   display: grid;
   margin-right: 10em;
   margin-left: 10em;
-  grid-template-columns: 1fr 1fr; 
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20PX;
-  grid-column-gap: 40px; 
-  grid-row-gap: 20px; 
+  gap: 20px;
+  grid-column-gap: 40px;
+  grid-row-gap: 20px;
+  font-family: 'Poppins', sans-serif; 
 }
+
 .box:hover {
   cursor: pointer; 
 }
 
-.box:hover .mission-title, .box:hover .section-title,
-.box:hover .mission-text, .box:hover .section-text {
+.box:hover .mission-title,
+.box:hover .section-title,
+.box:hover .mission-text,
+.box:hover .section-text {
   font-size: 1em; 
 }
 
@@ -23,15 +28,18 @@
   margin-top: 50px;
   font-size: 3em;
   font-weight: bold;
+  font-family: 'Poppins', sans-serif; 
 }
 
-.section-title, #head2, .mission-title{
+.section-title,
+#head2,
+.mission-title {
   color: rgb(242, 236, 236);
   text-align: center;
   font-size: 24px;
   font-weight: bold;
+  font-family: 'Poppins', sans-serif; 
 }
-
 
 .box {
   width: 450px;
@@ -40,10 +48,10 @@
   padding: 1rem;
   border: 1px solid rgb(41, 7, 234);
   border-radius: 10px;
-  transition:0.3s;
+  transition: 0.3s;
   background-color: #08415C;
-  ;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  font-family: 'Poppins', sans-serif; 
 }
 
 .grid-container img,
@@ -54,16 +62,15 @@
   transition: .5s;
 }
 
-.mission-text,.section-text{
+.mission-text,
+.section-text {
   flex: 1;
   color: white;
   text-align: center;
   font-style: Sans-serif;
   font-size: 1em;
-  
-
+  font-family: 'Poppins', sans-serif; 
 }
-
 
 .header-content img,
 .section-image img {
@@ -75,15 +82,13 @@
   margin-bottom: 5px;
 }
 
-
 #team-members-container {
-  background-color:#08415C;
-  ;
+  background-color: #08415C;
   border-radius: 15px;
   padding: 20px;
   margin-top: 50px;
   text-align: center;
-  
+  font-family: 'Poppins', sans-serif; 
 }
 
 .team-members {
@@ -111,10 +116,8 @@
   color: white;
 }
 
-
-
 @media screen and (max-width: 768px) {
   .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust column width for smaller screens */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
   }
 }
