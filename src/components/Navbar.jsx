@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext , useState} from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
@@ -17,24 +17,33 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import PersonIcon from "@mui/icons-material/Person";
 import { Link } from "react-router-dom";
+import {AuthContext } from "../context/AuthContext";
+import logonew from '../components/images/logonew.png'
 const drawerWidth = 250;
-const navItems = ["Home", "Posts", "About", "Contact" ];
+
 
 
 function Navbar(props) {
   const navigate= useNavigate()
+  const {isAuthenticated}=  useContext(AuthContext);
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
    
   const loginhandler=()=>{
     navigate("pages/Login")
   }
+  const handleHome =()=>{
+    navigate('/pages/Home')
+  }
   const Abouthandler = () => {
     navigate("pages/About");
-  };const Homehandler = () => {
-    navigate("pages/Home");
-  };const Postshandler = () => {
+  };
+
+  const Postshandler = () => {
     navigate("pages/Posts");
+  };
+  const profilehandler = () => {
+    navigate("pages/Profile");
   };
   
   const handleDrawerToggle = () => {
@@ -43,13 +52,14 @@ function Navbar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2, ml: 5 }}>
-       <img src="" alt="logo" />
+        <img src={logonew} alt="logo" className="rounded-full w-16 h-16" />
+         Mela Express
       </Typography>
       <Divider />
       <List>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: "center" }}>
-            <ListItemText primary={"Home"} onClick={Homehandler} />
+            <ListItemText primary={"Home"} onClick={handleHome} />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
@@ -62,12 +72,19 @@ function Navbar(props) {
             <ListItemText primary={"About"} onClick={Abouthandler} />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: "center" }}>
-          
-            <ListItemText primary={"Login"} onClick={loginhandler} />
-          </ListItemButton>
-        </ListItem>
+        {isAuthenticated ? (
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: "center" }}>
+              <ListItemText primary={"Profile"} onClick={profilehandler} />
+            </ListItemButton>
+          </ListItem>
+        ) : (
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: "center" }}>
+              <ListItemText primary={"Login"} onClick={loginhandler} />
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -77,35 +94,69 @@ function Navbar(props) {
 
   return (
     <Box sx={{ display: "flex", marginBottom: "100px" }}>
-      <AppBar component="nav" color="default">
+      <AppBar component="nav" color="default" className=" shadow-none ">
         <Toolbar>
           <Typography
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { sm: "block" } }}
           >
-            <img src="" alt="logo" />
+            <span className="flex flex-row items-center gap-4 font-serif text-xl font-semibold">
+              <img
+                src={logonew}
+                alt="logo"
+                onClick={handleHome}
+                style={{ width: "50px", height: "auto" }}
+                className="cursor-pointer font-sans"
+              />{" "}
+              Mela Express
+            </span>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "none", md: "block" }, mx: 2 }}>
-            <Button onClick={Homehandler} sx={{ color: "#CC2936", mx: 1 }}>
+            <Button
+              onClick={handleHome}
+              sx={{
+                color: "#CC2936",
+                mx: 1,
+                fontWeight: "bold",
+              }}
+            >
+              {" "}
               Home
             </Button>
-            <Button onClick={Postshandler} sx={{ color: "#CC2936", mx: 1 }}>
+            <Button
+              onClick={Postshandler}
+              sx={{
+                color: "#CC2936",
+                mx: 1,
+                fontWeight: "bold",
+              }}
+            >
               Posts
             </Button>
-            <Button onClick={Abouthandler} sx={{ color: "#CC2936", mx: 1 }}>
+            <Button
+              onClick={Abouthandler}
+              sx={{
+                color: "#CC2936",
+                mx: 1,
+                fontWeight: "bold",
+              }}
+            >
               About
             </Button>
-            <Button
-              variant="outlined"
-              onClick={loginhandler}
-              sx={{ color: "#CC2936" }}
-            >
-              Login
-            </Button>
-            <Link to={"/pages/Profile"}>
-              <PersonIcon />
-            </Link>
+            {isAuthenticated ? (
+              <Link to={"/pages/Profile"}>
+                <PersonIcon />
+              </Link>
+            ) : (
+              <Button
+                variant="outlined"
+                onClick={loginhandler}
+                sx={{ color: "#CC2936" }}
+              >
+                Login
+              </Button>
+            )}
           </Box>{" "}
           <IconButton
             aria-label="open drawer"
@@ -140,6 +191,4 @@ function Navbar(props) {
     </Box>
   );
 }
-
-
 export default Navbar;
